@@ -319,7 +319,7 @@ a.link.active {
 						<label class="form_lab required">UserName </label>
 						<div class="inner">
 							<div class="inner">
-								<input type="text" id="u" name="user_id"  required>
+								<input type="text" id="u" name="user_id" required>
 							</div>
 							<div class="err_msg">
 								<span class="ex_mark">!</span>Enter Username
@@ -353,13 +353,13 @@ a.link.active {
 
 					<div class="formaction">
 						<div class="outer">
-							<input type="submit" id="subBtn1" name="subBtn" value="Login" >
+							<input type="submit" id="subBtn1" name="subBtn" value="Login">
 							<div class="inner">
 								<span id="icon">&nbsp; &nbsp;<a href="Register"
 									class="link">First Time User? Register</a></span>
 							</div>
 							<div class="inner">
-								<span id="icon">&nbsp; &nbsp;<a href="ForgotUser"
+								<span id="icon">&nbsp; &nbsp;<a href="ForgotUserID"
 									class="link"> Forgot User ID</a></span>
 							</div>
 							<div class="inner">

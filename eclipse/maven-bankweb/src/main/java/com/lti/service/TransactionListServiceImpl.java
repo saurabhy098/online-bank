@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lti.bean.Transaction;
+import com.lti.bean.DebitTransaction;
 import com.lti.dao.TransactionListDao;
 import com.lti.exception.BankException;
 @Service("transactionListService")
@@ -17,7 +17,7 @@ public class TransactionListServiceImpl implements TransactionListService {
 	
 	
 	@Override
-	public List<Transaction> getTransactionList(BigDecimal accountno)throws BankException {
+	public List<DebitTransaction> getTransactionList(BigDecimal accountno)throws BankException {
 		// TODO Auto-generated method stub
 		return transactionListDao.getTransactionList(accountno);
 	}

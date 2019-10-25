@@ -1,6 +1,8 @@
 package com.lti.controller;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.lti.bean.Login;
 import com.lti.bean.Payee;
-import com.lti.bean.Transaction;
+import com.lti.bean.DebitTransaction;
 import com.lti.bean.UserRegister;
 import com.lti.exception.BankException;
 import com.lti.service.LoginService;
@@ -126,7 +128,7 @@ public class Controllers {
 	public ModelAndView getTransactionDetails() {
 		ModelAndView mAndV = null;
 
-		List<Transaction> transactions = null;
+		List<DebitTransaction> transactions = null;
 		BigDecimal r = new BigDecimal(2019100200);
 		try {
 			transactions = transactionListService.getTransactionList(r);
@@ -149,14 +151,39 @@ public class Controllers {
 	
 	
 	@RequestMapping(value = "/Neft", method = RequestMethod.POST)
-	public ModelAndView neftTransfer(ModelMap model, @RequestParam("senderaccount_no") String senderaccno, @RequestParam("receiveraccount_no") String receiveraccno, @RequestParam("amount")String amount, @RequestParam("date") Date date ) {
+	public ModelAndView neftTransfer(ModelMap model, @RequestParam("senderaccount_no") BigDecimal senderaccno, @RequestParam("receiveraccount_no") BigDecimal receiveraccno, @RequestParam("amount")int amount, @RequestParam("date") Date date ) {
 		ModelAndView mAndV = null;
-//		neftTransactionService.transaction(senderaccno, receiveraccno, amt);
+		
+		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	       Date dateobj = new Date();
+	       System.out.println(df.format(dateobj));
+		
+		
+	       try {
+			neftTransactionService.transaction(senderaccno, receiveraccno, amount,dateobj);
+			mAndV = new ModelAndView();
+			mAndV.setViewName("TransferSuccessful");
+		} catch (BankException e) {
+			
+			e.printStackTrace();
+		}
 		
 		return mAndV;
 		
 		
 	}
 	
+	
+	@RequestMapping("/ForgotPassword")
+	public String ForgotPassword() {
+		System.out.println("ForgotPassword page");
+		return "ForgotPassword";
+	}
+	
+	@RequestMapping("/ForgotUserID")
+	public String ForgotUser() {
+		System.out.println("ForgotUserID page");
+		return "ForgotUserID";
+	}
 
 }

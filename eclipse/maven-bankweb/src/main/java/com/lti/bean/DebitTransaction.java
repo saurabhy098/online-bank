@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "DEBIT_USER_TRANSACTION")
-public class Transaction {
+public class DebitTransaction {
 
 	@Id
 	@Column(name = "SENDER_ACCOUNT_NO ")
@@ -31,12 +31,12 @@ public class Transaction {
 	@Column(name = "TRANSACTION_DATE")
 	private Date date;
 
-	public Transaction() {
+	public DebitTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(BigDecimal senderaccount_no, BigDecimal receiveraccount_no, String transactiontype,
+	public DebitTransaction(BigDecimal senderaccount_no, BigDecimal receiveraccount_no, String transactiontype,
 			long currentbalaance, long amounttransfered, Date date) {
 		super();
 		this.senderaccount_no = senderaccount_no;

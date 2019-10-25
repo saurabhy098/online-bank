@@ -14,9 +14,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lti.bean.CreditTransaction;
 import com.lti.bean.CustomerBalance;
 import com.lti.bean.Payee;
-import com.lti.bean.Transaction;
+import com.lti.bean.DebitTransaction;
 import com.lti.exception.BankException;
 
 @Repository("NeftTransactionDao")
@@ -99,31 +100,34 @@ public class NeftTransactionDaoImpl implements NeftTransactionDao {
 	@Override
 	public void transaction(BigDecimal senderaccno, BigDecimal receiveraccno, int amt, Date date) throws BankException {
 
-		Transaction transaction = new Transaction();
-		// BigDecimal account_no = senderaccno;
-//		int amount = amt;
+		DebitTransaction debitTransaction = new DebitTransaction();
+		CreditTransaction creditTransaction=new CreditTransaction();
+		BigDecimal account_no = senderaccno;
+		int amount = amt;
 
-//		String sDate1 = "31/12/1998";
-//		Date date1 = null;
-//		try {
-//			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-//
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 		if (validate(senderaccno, receiveraccno) && min_Bal(senderaccno, amt)) {
 			System.out.println("finally");
 			int senderbal = debit(senderaccno, amt);
+			
+			//System.out.println(senderbal + " " + receiverbal);
+			debitTransaction.setDate(date);
+			debitTransaction.setSenderaccount_no(senderaccno);
+			debitTransaction.setReceiveraccount_no(receiveraccno);
+			debitTransaction.setTransactontype("neft");
+			debitTransaction.setCurrentbalaance(senderbal);
+			debitTransaction.setAmounttransfer(amt);
+			manager.persist(debitTransaction);
+			
 			int receiverbal = credit(receiveraccno, amt);
-			System.out.println(senderbal + " " + receiverbal);
-			transaction.setDate(date);
-			transaction.setSenderaccount_no(senderaccno);
-			transaction.setReceiveraccount_no(receiveraccno);
-			transaction.setTransactontype("neft");
-			transaction.setCurrentbalaance(senderbal);
-			transaction.setAmounttransfer(amt);
-			manager.persist(transaction);
+			creditTransaction.setDate(date);
+			creditTransaction.setSenderaccount_no(senderaccno);
+			creditTransaction.setReceiveraccount_no(receiveraccno);
+			creditTransaction.setTransactontype("neft");
+			creditTransaction.setCurrentbalaance(receiverbal);
+			creditTransaction.setAmounttransfer(amt);
+			manager.persist(creditTransaction);
+			
 			manager.close();
 		}
 	}
