@@ -21,7 +21,7 @@
 <ul>
 <a class="tabcontent" href="spring/Login" >Login</a>
 <a class="tabcontent" href="spring/Register">Register</a>
-<a class="tabcontent" href="openaccount">Open Account</a>
+<a class="tabcontent" href="spring/OpenAccount">Open Savings Account</a>
 </ul>
 </div>
 <img src="/WEB-INF/views/img/home.jpg"  width="760" height="400">

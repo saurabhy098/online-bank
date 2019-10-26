@@ -60,6 +60,14 @@ public class Controllers {
 		System.out.println("abxc");
 		return "Register";
 	}
+	
+	@RequestMapping("/OpenAccount")
+	public String OpenAccount() {
+		System.out.println("OpenAccount");
+		return "OpenAccount";
+	}
+	
+	
 
 	@RequestMapping(value = "/Register", method = RequestMethod.POST)
 	public ModelAndView setRegistrationDetails(Model model, UserRegister ur) throws BankException {
@@ -162,11 +170,10 @@ public class Controllers {
 
 	@RequestMapping(value = "/Neft", method = RequestMethod.POST)
 	public ModelAndView neftTransfer(ModelMap model, @RequestParam("senderaccount_no") BigDecimal senderaccno,
-			@RequestParam("receiveraccount_no") BigDecimal receiveraccno, @RequestParam("amount") int amount,
-			@RequestParam("date") Date date) {
+			@RequestParam("receiveraccount_no") BigDecimal receiveraccno, @RequestParam("amount") int amount) {
 		ModelAndView mAndV = null;
 
-		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("dd/MM/yy");
 		Date dateobj = new Date();
 		System.out.println(df.format(dateobj));
 
