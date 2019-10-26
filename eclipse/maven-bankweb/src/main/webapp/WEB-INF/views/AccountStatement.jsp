@@ -5,10 +5,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<style><%@ include file="/WEB-INF/views/css/dashboard.css" %></style>
 <title>Insert title here</title>
 </head>
 <body><head>
-            <style>
+           <!--  <style>
                     body {
                         background-color:gray;
                       
@@ -88,7 +89,7 @@
                     
                     
                     </style>
-
+ -->
 
 
 

@@ -17,7 +17,7 @@
 <div id="header"><h1><b><u><center>USER LOGIN</center></h1></u></b></div>
 <div class="body">
 <div class="form_fiels">
-<div class="outer"><label class="form_lab required">UserName </label>
+<div class="outer"><label class="UP">UserName </label>
 <div class="inner">
 <div class="inner"><input type="text" id="u" name="user_id" class="textInput" autocomplete="off" required></div>
 
@@ -25,20 +25,18 @@
 
 </div>
 
-<div class="outer"><label class="form_lab required">Password: </label>
+<div class="outer"><label class="UP">Password: </label>
 <div class="inner">
 <div class="inner"><input type="password" id="pass" name="user_password" class="textInput" autocomplete="off" required></div>
 </div>
 
 </div>
 
-
 <div class="formaction">
 <div class="outer">
-<input type="submit" id="subBtn1" name="subBtn" class="btn" value="Login">
+<center><input type="submit" id="subBtn1" name="subBtn" class="btn" value="Login"></center>
 </div>
 </div>
-
 
 </div><br>
 <div class="inner"><span id="icon">&nbsp; &nbsp;<a href="Register" class="link">First Time User? Register</a></span></div>

@@ -8,8 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to Bank!!!!!</title>
-<!--CSS link is inserted here-->
-<link rel="stylesheet" href="./CSS/form.css">
+<style><%@ include file="/WEB-INF/views/css/form.css" %></style>
 </head>
 
 
@@ -28,13 +27,13 @@
 
 
 					<div class="outer">
-						<label class="form_lab  required"> Enter User ID: </label>
+						<label class="UP"> Enter User ID: </label>
 						<div class="inner">
 							<div class="inner">
 								<input type="text" id="uf" name="userid">
 							</div>
 							<div class="outer">
-								<label class="form_lab  required"> Enter OTP </label>
+								<label class="UP"> Enter OTP </label>
 								<div class="inner">
 									<div class="inner">
 										<input type="text" id="pass1" name="passwd">
