@@ -126,17 +126,31 @@
                                             <th>balance</th>
                                             <th>amount transfered</th>
                                     </tr>
-                                 <c:forEach items="${requestScope.list }"  var="transaction">
+                                 <c:forEach items="${requestScope.list1 }"  var="transaction">
                                     <tr>
                                             <td>${transaction.date }</td>
                                             <td>${transaction.receiveraccount_no }</td>
                                             <td>${transaction.transactiontype }</td>
                                             <td>${transaction.currentbalaance}</td>
                                             <td>${transaction.amounttransfered}</td>
+                                        </tr>                                                                                                            
+                                        </c:forEach>                                                                                                                                                                   
+                                                                                                                                                                                                                     
+                                 <c:forEach items="${requestScope.list2 }"  var="transaction1">
+                                    <tr>
+                                            <td>${transaction1.date}</td>
+                                            <td>${transaction1.receiveraccount_no }</td>
+                                            <td>${transaction1.transactiontype }</td>
+                                            <td>${transaction1.currentbalaance}</td>
+                                            <td>${transaction1.amounttransfered}</td>
                                         </tr>
-                                        </c:forEach>
+                                      
+                                        </c:forEach>                                                                            
                                     </table>
+                                    
+
                         </div>
+                </div>
                 </div>
                 <div id="footer1">
                 <form method="post">

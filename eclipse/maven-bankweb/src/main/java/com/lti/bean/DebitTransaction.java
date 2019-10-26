@@ -63,12 +63,22 @@ public class DebitTransaction {
 		this.receiveraccount_no = receiveraccount_no;
 	}
 
-	public String getTransactontype() {
+	
+
+	public String getTransactiontype() {
 		return transactiontype;
 	}
 
-	public void setTransactontype(String transactontype) {
-		this.transactiontype = transactontype;
+	public void setTransactiontype(String transactiontype) {
+		this.transactiontype = transactiontype;
+	}
+
+	public long getAmounttransfered() {
+		return amounttransfered;
+	}
+
+	public void setAmounttransfered(long amounttransfered) {
+		this.amounttransfered = amounttransfered;
 	}
 
 	public long getCurrentbalaance() {

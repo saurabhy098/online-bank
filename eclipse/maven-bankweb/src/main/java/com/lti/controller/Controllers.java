@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.lti.bean.Login;
 import com.lti.bean.Payee;
+import com.lti.bean.CreditTransaction;
 import com.lti.bean.DebitTransaction;
 import com.lti.bean.UserRegister;
 import com.lti.exception.BankException;
+import com.lti.service.ForgotPasswordService;
+import com.lti.service.ForgotUserIdService;
 import com.lti.service.LoginService;
 import com.lti.service.NeftTransactionService;
 import com.lti.service.PayeeService;
@@ -41,9 +44,16 @@ public class Controllers {
 
 	@Resource
 	private TransactionListService transactionListService;
-	
+
 	@Resource
 	private NeftTransactionService neftTransactionService;
+	
+	@Resource
+	ForgotUserIdService forgotUserIdService; 
+	
+	@Resource
+	ForgotPasswordService forgetPasswordService;
+	
 
 	@RequestMapping("/Register")
 	public String Register() {
@@ -128,13 +138,16 @@ public class Controllers {
 	public ModelAndView getTransactionDetails() {
 		ModelAndView mAndV = null;
 
-		List<DebitTransaction> transactions = null;
-		BigDecimal r = new BigDecimal(2019100200);
+		List<DebitTransaction> dtransaction = null;
+		List<CreditTransaction> ctransaction = null;
+		BigDecimal r = new BigDecimal(2019100205);
 		try {
-			transactions = transactionListService.getTransactionList(r);
+			dtransaction= transactionListService.getDebitTransactionList(r);
+			ctransaction= transactionListService.getCreditTransactionList(r);
 			mAndV = new ModelAndView();
 			mAndV.setViewName("AccountStatement");
-			mAndV.addObject("list", transactions);
+			mAndV.addObject("list1", dtransaction);
+			mAndV.addObject("list2", ctransaction);			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -147,32 +160,58 @@ public class Controllers {
 		return "Neft";
 	}
 
-	
-	
-	
 	@RequestMapping(value = "/Neft", method = RequestMethod.POST)
-	public ModelAndView neftTransfer(ModelMap model, @RequestParam("senderaccount_no") BigDecimal senderaccno, @RequestParam("receiveraccount_no") BigDecimal receiveraccno, @RequestParam("amount")int amount, @RequestParam("date") Date date ) {
+	public ModelAndView neftTransfer(ModelMap model, @RequestParam("senderaccount_no") BigDecimal senderaccno,
+			@RequestParam("receiveraccount_no") BigDecimal receiveraccno, @RequestParam("amount") int amount,
+			@RequestParam("date") Date date) {
 		ModelAndView mAndV = null;
-		
+
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-	       Date dateobj = new Date();
-	       System.out.println(df.format(dateobj));
-		
-		
-	       try {
-			neftTransactionService.transaction(senderaccno, receiveraccno, amount,dateobj);
+		Date dateobj = new Date();
+		System.out.println(df.format(dateobj));
+
+		try {
+			neftTransactionService.transaction(senderaccno, receiveraccno, amount, dateobj);
 			mAndV = new ModelAndView();
 			mAndV.setViewName("TransferSuccessful");
 		} catch (BankException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		return mAndV;
+
+	}
+
+	
+
+	@RequestMapping("/ForgotUserID")
+	public String ForgotUser() {
+		System.out.println("ForgotUserID page");
+		return "ForgotUserID";
+	}
+
+	@RequestMapping(value = "/ForgotUserID", method = RequestMethod.POST)
+	public String ForgotUserID(ModelMap model, @RequestParam("account_no") BigDecimal account_no) {
 		
-		
+	
+		String user=forgotUserIdService.username(account_no);
+		System.out.println(user);
+		if (user!=null) {
+			model.put("user",user);
+		}
+		else
+		{
+			model.put("invalid","invalid user");
+		}
+		return "showuserid";
 	}
 	
+	@RequestMapping("/showuserid")
+	public String showuserid() {
+		System.out.println("showuserid page");
+		return "showuserid";
+	}
 	
 	@RequestMapping("/ForgotPassword")
 	public String ForgotPassword() {
@@ -180,10 +219,26 @@ public class Controllers {
 		return "ForgotPassword";
 	}
 	
-	@RequestMapping("/ForgotUserID")
-	public String ForgotUser() {
-		System.out.println("ForgotUserID page");
-		return "ForgotUserID";
+	@RequestMapping(value = "/ForgotUserID", method = RequestMethod.POST)
+	public String ForgotPass(ModelMap model, @RequestParam("userid") String userId) {
+		
+	
+		String pass=forgetPasswordService.password(userId);
+		System.out.println(pass);
+		if (pass!=null) {
+			model.put("pass",pass);
+		}
+		else
+		{
+			model.put("invalid","invalid user");
+		}
+		return "showpassword";
 	}
 
+	@RequestMapping("/showpassword")
+	public String showpassword() {
+		System.out.println("showpassword page");
+		return "showpassword";
+	}
+	
 }

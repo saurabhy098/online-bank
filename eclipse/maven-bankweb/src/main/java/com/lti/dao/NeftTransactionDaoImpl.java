@@ -114,7 +114,7 @@ public class NeftTransactionDaoImpl implements NeftTransactionDao {
 			debitTransaction.setDate(date);
 			debitTransaction.setSenderaccount_no(senderaccno);
 			debitTransaction.setReceiveraccount_no(receiveraccno);
-			debitTransaction.setTransactontype("neft");
+			debitTransaction.setTransactiontype("neft");
 			debitTransaction.setCurrentbalaance(senderbal);
 			debitTransaction.setAmounttransfer(amt);
 			manager.persist(debitTransaction);
@@ -123,7 +123,7 @@ public class NeftTransactionDaoImpl implements NeftTransactionDao {
 			creditTransaction.setDate(date);
 			creditTransaction.setSenderaccount_no(senderaccno);
 			creditTransaction.setReceiveraccount_no(receiveraccno);
-			creditTransaction.setTransactontype("neft");
+			creditTransaction.setTransactiontype("neft");
 			creditTransaction.setCurrentbalaance(receiverbal);
 			creditTransaction.setAmounttransfer(amt);
 			manager.persist(creditTransaction);

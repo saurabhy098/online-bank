@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lti.bean.CreditTransaction;
 import com.lti.bean.DebitTransaction;
 import com.lti.exception.BankException;
 
@@ -23,8 +24,15 @@ public class TransactionListDaoImpl implements  TransactionListDao {
 	private EntityManager manager;
 	
 	@Override
-	public List<DebitTransaction> getTransactionList(BigDecimal accountno)throws BankException {
-		Query qry = manager.createQuery("FROM Transaction WHERE senderaccount_no = :acc");
+	public List<DebitTransaction> getDebitTransactionList(BigDecimal accountno)throws BankException {
+		Query qry = manager.createQuery("FROM DebitTransaction WHERE senderaccount_no = :acc");
+		qry.setParameter("acc", accountno);
+		return qry.getResultList();
+	}
+	
+	@Override
+	public List<CreditTransaction> getCreditTransactionList(BigDecimal accountno)throws BankException {
+		Query qry = manager.createQuery("FROM CreditTransaction WHERE receiveraccount_no = :acc");
 		qry.setParameter("acc", accountno);
 		return qry.getResultList();
 	}
